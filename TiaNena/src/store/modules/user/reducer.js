@@ -1,18 +1,23 @@
-import immer from 'immer';
+import produce from 'immer';
 
 const INITIAL_STATE = {
-    name: null,
-    cpf: null,
+  name: null,
+  cpf: null,
 };
-export default function user(state = INITIAL_STATE, action){
-    return produce(state, draft => {
-        switch (action.type){
-            case '@auth/LOGIN_SUCCESS':{
-                draft.name = action.payload.id;
-                draft.cpf = action.payload.cpf;
-                break;
-            }
-            case '@auth'
-        }
-    })
+export default function user(state = INITIAL_STATE, action) {
+  return produce(state, (draft) => {
+    switch (action.type) {
+      case '@auth/LOGIN_SUCCESS': {
+        draft.name = action.payload.id;
+        draft.cpf = action.payload.cpf;
+        break;
+      }
+      case '@auth/SIGN_OUT': {
+        draft.name = null;
+        draft.cpf = null;
+        break;
+      }
+      default:
+    }
+  });
 }

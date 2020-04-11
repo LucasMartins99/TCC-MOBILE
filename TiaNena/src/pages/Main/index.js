@@ -5,7 +5,7 @@ import { Container, Title, List } from './styles';
 import Background from '../../componentes/Background';
 import Events from '../../componentes/Events';
 
-export default function Main() {
+export default function Main({ navigation }) {
   const [events, setEvents] = useState([]);
   useEffect(() => {
     async function loadEvents() {
@@ -23,7 +23,9 @@ export default function Main() {
         <List
           data={events}
           keyExtractor={(item) => String(item.id)}
-          renderItem={({ item }) => <Events data={item} />}
+          renderItem={({ item }) => (
+            <Events data={item} navigation={navigation} />
+          )}
         />
       </Container>
     </Background>
