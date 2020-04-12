@@ -8,8 +8,8 @@ export default function user(state = INITIAL_STATE, action) {
   return produce(state, (draft) => {
     switch (action.type) {
       case '@auth/LOGIN_SUCCESS': {
-        draft.name = action.payload.id;
-        draft.cpf = action.payload.cpf;
+        draft.name = action.payload.user.name;
+        draft.cpf = action.payload.user.cpf;
         break;
       }
       case '@auth/SIGN_OUT': {

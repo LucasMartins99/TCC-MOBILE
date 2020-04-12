@@ -1,5 +1,7 @@
+/* eslint-disable camelcase */
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Alert } from 'react-native';
 import {
   Container,
   Avatar,
@@ -12,7 +14,7 @@ import {
   Div,
 } from './styles';
 import * as CartActions from '../../store/modules/cart/actions';
-import * as AuthActions from '../../store/modules/auth/actions';
+import api from '../../services/api';
 
 function formatDate(date) {
   const dia = date.split('-')[2];
@@ -27,12 +29,23 @@ function formatHours(hours) {
 }
 export default function Events({ data, navigation }) {
   const dispatch = useDispatch();
+  const name = useSelector((state) => state.user.name);
+  const cpf = useSelector((state) => state.user.cpf);
   function handleComprar(id) {
     dispatch(CartActions.addToCartRequest(id));
     navigation.navigate('Cart');
   }
-  function handleLista() {
-    dispatch(AuthActions.signOut());
+  async function handleLista(id2) {
+    const id_events = parseInt(id2, 0);
+    try {
+      await api.post(`/list/${id_events}`, {
+        name,
+        cpf,
+      });
+      Alert.alert('Nome na lista com sucesso !!');
+    } catch (err) {
+      Alert.alert('Error entre em contato com ADM');
+    }
   }
   return (
     <Container>
@@ -46,7 +59,7 @@ export default function Events({ data, navigation }) {
         <Comprar onPress={() => handleComprar(data.id)}>
           Comprar convite
         </Comprar>
-        <Lista onPress={handleLista}>Nome na Lista</Lista>
+        <Lista onPress={() => handleLista(data.id)}>Nome na Lista</Lista>
       </Div>
     </Container>
   );

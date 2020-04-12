@@ -19,6 +19,7 @@ import * as CartActions from '../../store/modules/cart/actions';
 
 export default function Cart() {
   function handleFinalizar() {}
+
   const dispatch = useDispatch();
   const total = useSelector((state) =>
     formatPrice(

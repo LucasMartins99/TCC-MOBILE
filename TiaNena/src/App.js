@@ -4,6 +4,7 @@ import createRouter from './routes';
 
 export default function App() {
   const signed = useSelector((state) => state.auth.signed);
-  const Routes = createRouter(signed);
+  const cart = useSelector((state) => state.cart.length);
+  const Routes = createRouter(signed, cart);
   return <Routes />;
 }
