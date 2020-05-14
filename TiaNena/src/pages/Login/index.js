@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Image } from 'react-native';
 import {
   Container,
   Form,
@@ -10,6 +12,7 @@ import {
 } from './styles';
 import Background from '../../componentes/Background';
 import { loginRequest } from '../../store/modules/auth/actions';
+import logo from '../../assets/imagens/logo.png';
 
 export default function Login({ navigation }) {
   const passwordRef = useRef();
@@ -23,6 +26,7 @@ export default function Login({ navigation }) {
   return (
     <Background>
       <Container>
+        <Image source={logo} />
         <Form>
           <FormInput
             icon="mail-outline"
@@ -54,3 +58,8 @@ export default function Login({ navigation }) {
     </Background>
   );
 }
+Login.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -18,9 +18,13 @@ import Ingressos from '../../componentes/Ingressos';
 import * as CartActions from '../../store/modules/cart/actions';
 
 export default function Cart() {
-  function handleFinalizar() {}
+  function handleFinalizar() {
+  
+
+  }
 
   const dispatch = useDispatch();
+
   const total = useSelector((state) =>
     formatPrice(
       state.cart.reduce((totalSum, event) => {
