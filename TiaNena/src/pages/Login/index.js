@@ -12,7 +12,7 @@ import {
 } from './styles';
 import Background from '../../componentes/Background';
 import { loginRequest } from '../../store/modules/auth/actions';
-import logo from '../../assets/imagens/logo.png';
+import logo from '../../assets/imagens/logo180x136.png';
 
 export default function Login({ navigation }) {
   const passwordRef = useRef();

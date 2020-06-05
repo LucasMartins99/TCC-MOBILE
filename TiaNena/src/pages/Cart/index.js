@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Alert } from 'react-native';
 import { formatPrice } from '../../util/format';
 import {
   Container,
@@ -16,14 +16,35 @@ import {
 import Background from '../../componentes/Background';
 import Ingressos from '../../componentes/Ingressos';
 import * as CartActions from '../../store/modules/cart/actions';
+import api from '../../services/api';
 
-export default function Cart() {
-  function handleFinalizar() {
-  
-
-  }
-
+export default function Cart({ navigation }) {
   const dispatch = useDispatch();
+
+  const camaroteQuantityMen = useSelector((state) => state.cart[0].amountCM);
+  const camaroteQuantityWoman = useSelector((state) => state.cart[0].amountCF);
+  const pistaQuantityMen = useSelector((state) => state.cart[0].amountPM);
+  const pistaQuantityWoman = useSelector((state) => state.cart[0].amountPF);
+  const eventId = useSelector((state) => state.cart[0].id);
+  const userId = useSelector((state) => state.user.id);
+
+  async function handleFinalizar() {
+    try {
+      await api.post('/orders', {
+        camaroteQuantityMen,
+        camaroteQuantityWoman,
+        pistaQuantityMen,
+        pistaQuantityWoman,
+        userId,
+        eventId,
+      });
+      Alert.alert('Compra realizada com sucesso, verifique seu e-mail');
+      dispatch(CartActions.paySuccess());
+      navigation.navigate('Main');
+    } catch (err) {
+      Alert.alert('Erro tente novamente');
+    }
+  }
 
   const total = useSelector((state) =>
     formatPrice(
@@ -135,7 +156,9 @@ export default function Cart() {
         />
       </Container>
       <Footer>
-        <Finalizar onPress={handleFinalizar}>Finalizar Compra</Finalizar>
+        <Finalizar onPress={() => handleFinalizar()}>
+          Finalizar Compra
+        </Finalizar>
         <Total>
           <Text>TOTAL</Text>
           <Valor>{total}</Valor>

@@ -14,7 +14,6 @@ import {
   Lista,
   Div,
   Fechar,
-  DivModal,
   CenterModal,
   List,
   DivList,
@@ -47,7 +46,6 @@ export default function Events({ data, navigation, lista }) {
   async function handleModal(id) {
     setModalVisible(true);
     const id_events = parseInt(id, 0);
-
     const response = await api.get('/list');
     setEvents(response.data);
   }
@@ -107,9 +105,7 @@ export default function Events({ data, navigation, lista }) {
             )}
           />
           <Div>
-            <Fechar onPress={() => setModalVisible(!modalVisible)}>
-              Fechar lista
-            </Fechar>
+            <Fechar onPress={() => setModalVisible(false)}>Fechar lista</Fechar>
           </Div>
         </Modal>
       </CenterModal>
