@@ -29,5 +29,5 @@ Ingressos.propTypes = {
   data: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 Ingressos.defaultProps = {
-  data: {},
+  data: null,
 };

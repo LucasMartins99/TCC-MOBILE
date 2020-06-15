@@ -38,10 +38,14 @@ export default function Events({ data, navigation, lista }) {
   const cpf = useSelector((state) => state.user.cpf);
   const [modalVisible, setModalVisible] = useState(false);
   const [events, setEvents] = useState([]);
-
+  const cartVazio = useSelector((state) => state.cart.length);
   function handleComprar(id) {
     dispatch(CartActions.addToCartRequest(id));
-    navigation.navigate('Cart');
+    if (cartVazio >= 1) {
+      navigation.navigate('Cart');
+    } else {
+      navigation.navigate('Main');
+    }
   }
   async function handleModal(id) {
     setModalVisible(true);

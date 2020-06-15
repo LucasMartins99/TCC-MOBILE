@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Alert } from 'react-native';
@@ -145,7 +145,7 @@ export default function Cart({ navigation }) {
         <Title>CONVITES</Title>
         <List
           data={data}
-          keyExtractor={(item) => String(item.id)}
+          keyExtractor={(item) => String(item.name)}
           renderItem={({ item }) => (
             <Ingressos
               data={item}

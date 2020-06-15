@@ -5,10 +5,11 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Main from './pages/Main';
 import Cart from './pages/Cart';
+import Perfil from './pages/Perfil';
 
 import Lista from './pages/Lista';
 
-export default (isSigned = false, isCart = 0) =>
+export default (isSigned = false, isAdm) =>
   createAppContainer(
     createSwitchNavigator(
       {
@@ -19,7 +20,7 @@ export default (isSigned = false, isCart = 0) =>
         App: createBottomTabNavigator(
           {
             Main,
-            Lista,
+            Perfil,
           },
 
           {
@@ -33,11 +34,12 @@ export default (isSigned = false, isCart = 0) =>
             },
           }
         ),
-        Cart: createBottomTabNavigator(
+        Adm: createBottomTabNavigator(
           {
             Main,
             Cart,
             Lista,
+            Perfil,
           },
 
           {
@@ -54,7 +56,7 @@ export default (isSigned = false, isCart = 0) =>
       },
       {
         initialRouteName:
-          isSigned && !isCart ? 'App' : !isSigned ? 'Sign' : 'Cart',
+          isSigned && !isAdm ? 'App' : !isSigned ? 'Sign' : 'Adm',
       }
     )
   );

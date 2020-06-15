@@ -21,6 +21,29 @@ export function createUserRequest(name, email, password, type, cpf) {
     payload: { name, email, password, type, cpf },
   };
 }
+
+export function updatedUserRequest(
+  name,
+  email,
+  password,
+  oldPassword,
+  confirmPassword,
+  type,
+  userId
+) {
+  return {
+    type: '@auth/UPDATED_USER_REQUEST',
+    payload: {
+      name,
+      email,
+      password,
+      oldPassword,
+      confirmPassword,
+      type,
+      userId,
+    },
+  };
+}
 export function signOut() {
   return {
     type: '@auth/SIGN_OUT',

@@ -5,6 +5,7 @@ export default function cart(state = [], action) {
     case '@cart/ADD_SUCESS':
       return produce(state, (draft) => {
         const { event } = action;
+        draft.splice(0, draft.length);
         draft.push(event);
       });
     case '@cart/REMOVE':

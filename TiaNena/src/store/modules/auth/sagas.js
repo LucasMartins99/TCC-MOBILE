@@ -35,7 +35,40 @@ export function* createUser({ payload }) {
     /* history.push("/"); */
     Alert.alert('Usuario cadastrado com suceeso !!');
   } catch (err) {
-    Alert.alert('Falha no cadastro', 'Houve um erro verifique seus dados');
+    Alert.alert('Falha no cadastro, Houve um erro verifique seus dados');
+  }
+}
+
+export function* updatedUser({ payload }) {
+  try {
+    const {
+      name,
+      email,
+      password,
+      oldPassword,
+      confirmPassword,
+      type,
+      userId,
+    } = payload;
+    yield call(api.put, 'users', {
+      name,
+      email,
+      password,
+      oldPassword,
+      confirmPassword,
+      type,
+      userId,
+    });
+    const response = yield call(api.post, 'sessions', {
+      email,
+      password,
+    });
+    const { token, user } = response.data;
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+    yield put(loginSuccess(token, user));
+    Alert.alert('Usuario alterado com sucesso !!');
+  } catch (err) {
+    Alert.alert('Falha na alteração, verifique os dados');
   }
 }
 
@@ -53,5 +86,6 @@ export default all([
   takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@auth/LOGIN_REQUEST', login),
   takeLatest('@auth/CREATE_USER_REQUEST', createUser),
+  takeLatest('@auth/UPDATED_USER_REQUEST', updatedUser),
   takeLatest('@auth/SIGN_OUT', signOut),
 ]);
