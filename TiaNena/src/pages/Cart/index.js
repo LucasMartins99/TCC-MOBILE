@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Alert } from 'react-native';
+import PropTypes from 'prop-types';
 import { formatPrice } from '../../util/format';
 import {
   Container,
@@ -172,4 +173,10 @@ Cart.navigationOptions = {
   tabBarIcon: ({ tintColor }) => (
     <Icon name="local-grocery-store" size={20} color={tintColor} />
   ),
+};
+
+Cart.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };

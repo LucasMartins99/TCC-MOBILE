@@ -6,10 +6,10 @@ import Register from './pages/Register';
 import Main from './pages/Main';
 import Cart from './pages/Cart';
 import Perfil from './pages/Perfil';
-
+import Reader from './pages/Reader';
 import Lista from './pages/Lista';
 
-export default (isSigned = false, isAdm) =>
+export default (isSigned = false, isAdm, isCartVazio = false) =>
   createAppContainer(
     createSwitchNavigator(
       {
@@ -18,10 +18,16 @@ export default (isSigned = false, isAdm) =>
           Register,
         }),
         App: createBottomTabNavigator(
-          {
-            Main,
-            Perfil,
-          },
+          !isCartVazio
+            ? {
+                Main,
+                Perfil,
+              }
+            : {
+                Main,
+                Cart,
+                Perfil,
+              },
 
           {
             tabBarOptions: {
@@ -34,13 +40,22 @@ export default (isSigned = false, isAdm) =>
             },
           }
         ),
+
         Adm: createBottomTabNavigator(
-          {
-            Main,
-            Cart,
-            Lista,
-            Perfil,
-          },
+          !isCartVazio
+            ? {
+                Main,
+                Lista,
+                Perfil,
+                Reader,
+              }
+            : {
+                Main,
+                Cart,
+                Lista,
+                Perfil,
+                Reader,
+              },
 
           {
             tabBarOptions: {

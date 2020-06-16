@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Image } from 'react-native';
 import {
   Container,
   Form,
@@ -10,6 +12,7 @@ import {
 } from './styles';
 import Background from '../../componentes/Background';
 import { createUserRequest } from '../../store/modules/auth/actions';
+import logo from '../../assets/imagens/Tianena.png';
 
 export default function Register({ navigation }) {
   const passwordRef = useRef();
@@ -28,6 +31,7 @@ export default function Register({ navigation }) {
   return (
     <Background>
       <Container>
+        <Image source={logo} />
         <Form>
           <FormInput
             icon="person"
@@ -79,3 +83,8 @@ export default function Register({ navigation }) {
     </Background>
   );
 }
+Register.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
